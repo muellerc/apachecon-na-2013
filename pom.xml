@@ -14,6 +14,7 @@
 	
 	<modules>
 		<module>xpath-vs-xquery</module>
+		<module>file-appending</module>
 	</modules>
 	
 	<build>
