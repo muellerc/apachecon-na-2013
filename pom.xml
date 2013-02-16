@@ -15,6 +15,7 @@
 	<modules>
 		<module>xpath-vs-xquery</module>
 		<module>file-appending</module>
+		<module>threads</module>
 	</modules>
 	
 	<build>
