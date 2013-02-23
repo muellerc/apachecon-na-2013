@@ -19,19 +19,19 @@ package org.apache.cmueller.camel.apachecon.na2013;
 import java.io.FileInputStream;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.xml.Namespaces;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.apache.camel.util.StopWatch;
 import org.apache.commons.io.IOUtils;
+import org.apacheextras.camel.component.vtdxml.VtdXmlXPathBuilder;
 import org.junit.Test;
 
-public class XPathRouteTest extends CamelTestSupport {
+public class VtdxmlRouteTest extends CamelTestSupport {
 
     private int repeatCounter = 10000;
 
     @Test
-    public void measureXPathExecution() throws Exception {
-        template.setDefaultEndpointUri("direct:xpath");
+    public void measureVtdxmlExecution() throws Exception {
+        template.setDefaultEndpointUri("direct:vtdxml");
         String paylaod = IOUtils.toString(new FileInputStream("src/test/data/10K_buyStocks.xml"), "UTF-8");
 
         // warm up
@@ -39,15 +39,15 @@ public class XPathRouteTest extends CamelTestSupport {
             template.sendBody(paylaod);
         }
 
-        getMockEndpoint("mock:xpath").reset();
-        getMockEndpoint("mock:xpath").expectedMessageCount(repeatCounter);
+        getMockEndpoint("mock:vtdxml").reset();
+        getMockEndpoint("mock:vtdxml").expectedMessageCount(repeatCounter);
 
         StopWatch watch = new StopWatch();
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBody(paylaod);
         }
         watch.stop();
-        System.out.println("measureXPathExecution duration: " + watch.taken() + "ms");
+        System.out.println("measureVtdxmlExecution duration: " + watch.taken() + "ms");
 
         assertMockEndpointsSatisfied();
     }
@@ -56,13 +56,15 @@ public class XPathRouteTest extends CamelTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                Namespaces ns = new Namespaces("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
-                ns.add("s", "http://services.samples/xsd");
+                VtdXmlXPathBuilder predicate =
+                    new VtdXmlXPathBuilder("/soapenv:Envelope/soapenv:Body/s:buyStocks/order[5]/symbol='IBM'")
+                        .namespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/")
+                        .namespace("s", "http://services.samples/xsd");
 
-                from("direct:xpath")
+                from("direct:vtdxml")
                     .choice()
-                        .when().xpath("/soapenv:Envelope/soapenv:Body/s:buyStocks/order[5]/symbol='IBM'", ns)
-                            .to("mock:xpath")
+                        .when(predicate)
+                            .to("mock:vtdxml")
                     .end();
             }
         };
