@@ -16,6 +16,7 @@
         <module>file-appending</module>
         <module>file-splitting</module>
         <module>threads</module>
+        <module>jms-routing</module>
     </modules>
 
     <build>
