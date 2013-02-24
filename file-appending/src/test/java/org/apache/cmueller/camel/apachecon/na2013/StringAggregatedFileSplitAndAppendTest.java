@@ -34,9 +34,7 @@ public class StringAggregatedFileSplitAndAppendTest extends CamelTestSupport {
         context.startRoute("splitter");
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
 
-        watch.stop();
-
-        System.out.println("measureStringAggregatedFileSplitAndAppend duration: " + watch.taken() + "ms");
+        System.out.println("measureStringAggregatedFileSplitAndAppend duration: " + watch.stop() + "ms");
     }
 
     @Override

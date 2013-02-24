@@ -46,10 +46,9 @@ public class XPathRouteTest extends CamelTestSupport {
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBody(paylaod);
         }
-        watch.stop();
-        System.out.println("measureXPathExecution duration: " + watch.taken() + "ms");
-
         assertMockEndpointsSatisfied();
+
+        System.out.println("measureXPathExecution duration: " + watch.stop() + "ms");
     }
 
     @Override

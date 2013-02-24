@@ -36,9 +36,7 @@ public class TokenizeSplitterRouteTest extends CamelTestSupport {
         context.startRoute("splitter");
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
 
-        watch.stop();
-
-        System.out.println("measureTokenizeSplitter duration: " + watch.taken() + "ms");
+        System.out.println("measureTokenizeSplitter duration: " + watch.stop() + "ms");
     }
 
     @Override

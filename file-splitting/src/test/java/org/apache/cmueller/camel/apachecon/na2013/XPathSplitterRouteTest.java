@@ -48,9 +48,7 @@ public class XPathSplitterRouteTest extends CamelTestSupport {
         context.startRoute("splitter");
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
 
-        watch.stop();
-
-        System.out.println("measureXPathSplitter duration: " + watch.taken() + "ms");
+        System.out.println("measureXPathSplitter duration: " + watch.stop() + "ms");
     }
 
     @Override

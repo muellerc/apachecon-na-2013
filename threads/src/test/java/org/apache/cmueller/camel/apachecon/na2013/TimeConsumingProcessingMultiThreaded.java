@@ -42,9 +42,8 @@ public class TimeConsumingProcessingMultiThreaded extends CamelTestSupport {
             template.sendBody("PAYLOAD");
         }
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-        watch.stop();
 
-        System.out.println("measureTimeConsumingProcessingMultiThreaded duration: " + watch.taken() + "ms");
+        System.out.println("measureTimeConsumingProcessingMultiThreaded duration: " + watch.stop() + "ms");
     }
 
     private void warmUp(int count) throws Exception {

@@ -42,14 +42,14 @@ public class JmsMessageInOutExchangePatternTest extends CamelTestSupport {
         broker.setUseJmx(false);
         broker.addConnector("tcp://localhost:61616");
         broker.start();
-                
+
         super.setUp();
     }
 
     @After
     public void tearDown() throws Exception {
         super.tearDown();
-        
+
         broker.stop();
     }
 
@@ -69,9 +69,8 @@ public class JmsMessageInOutExchangePatternTest extends CamelTestSupport {
             template.sendBody(paylaod);
         }
         assertMockEndpointsSatisfied(5, TimeUnit.MINUTES);
-        watch.stop();
 
-        System.out.println("measureJmsInOutExecution duration: " + watch.taken() + "ms");
+        System.out.println("measureJmsInOutExecution duration: " + watch.stop() + "ms");
     }
 
     private void warmUp(String paylaod) throws InterruptedException {

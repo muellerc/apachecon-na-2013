@@ -36,9 +36,7 @@ public class FileProcessingMultiThreaded extends CamelTestSupport {
         context.startRoute("file-reader");
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
 
-        watch.stop();
-
-        System.out.println("measureFileProcessingSingleThreaded duration: " + watch.taken() + "ms");
+        System.out.println("measureFileProcessingSingleThreaded duration: " + watch.stop() + "ms");
     }
 
     @Override

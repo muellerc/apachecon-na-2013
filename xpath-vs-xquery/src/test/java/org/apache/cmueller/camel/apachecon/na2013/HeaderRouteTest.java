@@ -45,11 +45,9 @@ public class HeaderRouteTest extends CamelTestSupport {
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBodyAndHeader(paylaod, "ROUTING_CONDITION", "IBM");
         }
-        watch.stop();
-
-        System.out.println("measureHeaderExecution duration: " + watch.taken() + "ms");
-
         assertMockEndpointsSatisfied();
+
+        System.out.println("measureHeaderExecution duration: " + watch.stop() + "ms");
     }
 
     @Override

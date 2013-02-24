@@ -46,10 +46,9 @@ public class VtdxmlRouteTest extends CamelTestSupport {
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBody(paylaod);
         }
-        watch.stop();
-        System.out.println("measureVtdxmlExecution duration: " + watch.taken() + "ms");
-
         assertMockEndpointsSatisfied();
+
+        System.out.println("measureVtdxmlExecution duration: " + watch.stop() + "ms");
     }
 
     @Override
