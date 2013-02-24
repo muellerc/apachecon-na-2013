@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="EchoWSDL" targetNamespace="http://services.samples/xsd" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://services.samples/xsd" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.samples/xsd" xmlns:tns="http://services.samples/xsd" elementFormDefault="unqualified">
+            <xsd:element name="buyStocks">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="order">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="symbol" type="xsd:string"></xsd:element>
+                                    <xsd:element name="buyerID" type="xsd:string"></xsd:element>
+                                    <xsd:element name="price" type="xsd:double"></xsd:element>
+                                    <xsd:element name="volume" type="xsd:int"></xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+
+    <message name="BuyOperation">
+        <part name="parameters" element="tns:buyStocks" />
+    </message>
+    <message name="BuyOperationResponse">
+        <part name="parameters" element="tns:buyStocks" />
+    </message>
+
+    <portType name="buyStocksPortType">
+        <operation name="buyStocksOperation">
+            <input name="request" message="tns:BuyOperation" />
+            <output name="response" message="tns:BuyOperationResponse" />
+        </operation>
+    </portType>
+
+    <binding name="BuyServiceSOAP11Binding" type="tns:buyStocksPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+        
+        <operation name="buyStocksOperation">
+            <soap:operation soapAction="urn:buyStocks" style="document" />
+            <input name="request">
+                <soap:body use="literal" />
+            </input>
+            <output name="response">
+                <soap:body use="literal" />
+            </output>
+        </operation>
+    </binding>
+
+    <service name="DirectProxy">
+        <port name="BuyServicePort" binding="tns:BuyServiceSOAP11Binding">
+            <soap:address location="http://localhost:8192/service/DirectProxy" />
+        </port>
+    </service>
+</definitions>
+

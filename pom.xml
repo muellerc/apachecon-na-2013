@@ -17,6 +17,7 @@
         <module>file-splitting</module>
         <module>threads</module>
         <module>jms-routing</module>
+        <module>cxf</module>
     </modules>
 
     <build>
