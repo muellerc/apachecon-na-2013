@@ -1,0 +1,18 @@
+<binding xmlns:ns1="http://services.samples/xsd" name="binding" package="org.apache.cmueller.camel.apachecon.na2013.model">
+    <namespace uri="http://services.samples/xsd" default="elements" />
+
+    <mapping abstract="true" type-name="ns1:buyStocks" class="org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks">
+        <collection field="order" usage="optional" create-type="java.util.ArrayList">
+            <structure type="org.apache.cmueller.camel.apachecon.na2013.model.Order" name="order">
+                <value style="element" name="symbol" field="symbol" />
+                <value style="element" name="buyerID" field="buyerID" />
+                <value style="element" name="price" field="price" />
+                <value style="element" name="volume" field="volume" />
+            </structure>
+        </collection>
+    </mapping>
+
+    <mapping class="org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks" name="buyStocks">
+        <structure map-as="ns1:buyStocks" />
+    </mapping>
+</binding>

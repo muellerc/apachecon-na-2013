@@ -1,0 +1,11 @@
+<order xmlns="http://jibx.org/starter1">
+  <item quantity="1" price="5.99">
+    <id>FA9498349851</id>
+  </item>
+  <item quantity="2" price="9.50">
+    <id>GC1234905049</id>
+  </item>
+  <item quantity="1" price="8.95">
+    <id>AX9300048820</id>
+  </item>
+</order>
