@@ -28,7 +28,7 @@
         <module>file-splitting</module>
         <module>marshaling-unmarshaling</module>
         <module>threads</module>
-        <module>jms-routing</module>
+        <module>jms</module>
         <module>cxf</module>
         <module>sql-component</module>
     </modules>
