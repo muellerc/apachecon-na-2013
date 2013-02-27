@@ -17,6 +17,7 @@
         <org.apache.camel.version>2.10.4</org.apache.camel.version>
         <org.apache-extras.camel-extra.version>2.10.1</org.apache-extras.camel-extra.version>
         <org.apache.cxf.version>2.6.6</org.apache.cxf.version>
+        <org.apache.derby.version>10.9.1.0</org.apache.derby.version>
         <org.jibx.version>1.2.4.5</org.jibx.version>
         <org.slf4j.version>1.6.6</org.slf4j.version>
     </properties>
@@ -29,6 +30,7 @@
         <module>threads</module>
         <module>jms-routing</module>
         <module>cxf</module>
+        <module>sql-component</module>
     </modules>
     
     <dependencyManagement>
@@ -95,6 +97,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-sql</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-stream</artifactId>
                 <version>${org.apache.camel.version}</version>
             </dependency>
@@ -127,6 +134,11 @@
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-transports-http-jetty</artifactId>
                 <version>${org.apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>${org.apache.derby.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jibx</groupId>
