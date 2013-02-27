@@ -16,6 +16,7 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,7 +29,9 @@ import javax.xml.bind.annotation.XmlType;
     "order"
 })
 @XmlRootElement(name = "buyStocks")
-public class BuyStocks {
+public class BuyStocks implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected ArrayList<Order> order;
 
