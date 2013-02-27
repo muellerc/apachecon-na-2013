@@ -25,7 +25,7 @@
     <modules>
         <module>cbr-eip</module>
         <module>file-appending</module>
-        <module>file-splitting</module>
+        <module>split-eip</module>
         <module>marshaling-unmarshaling</module>
         <module>threads</module>
         <module>jms</module>
