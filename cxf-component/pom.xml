@@ -9,8 +9,8 @@
     </parent>
 
     <groupId>org.apache.cmueller.camel.apachecon-na-2013</groupId>
-    <artifactId>cxf</artifactId>
-    <name>ApacheCon NA 2013 :: cxf</name>
+    <artifactId>cxf-component</artifactId>
+    <name>ApacheCon NA 2013 :: cxf-component</name>
 
     <dependencies>
         <dependency>

@@ -24,12 +24,12 @@
 
     <modules>
         <module>cbr-eip</module>
-        <module>file-appending</module>
+        <module>file-component</module>
         <module>split-eip</module>
         <module>marshaling-unmarshaling</module>
         <module>threads</module>
-        <module>jms</module>
-        <module>cxf</module>
+        <module>jms-component</module>
+        <module>cxf-component</module>
         <module>sql-component</module>
     </modules>
     

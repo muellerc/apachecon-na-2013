@@ -9,8 +9,8 @@
     </parent>
 
     <groupId>org.apache.cmueller.camel.apachecon-na-2013</groupId>
-    <artifactId>file-appending</artifactId>
-    <name>ApacheCon NA 2013 :: file-appending</name>
+    <artifactId>jms-component</artifactId>
+    <name>ApacheCon NA 2013 :: jms-component</name>
 
     <dependencies>
         <dependency>
@@ -19,7 +19,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-stream</artifactId>
+            <artifactId>camel-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -31,6 +35,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
