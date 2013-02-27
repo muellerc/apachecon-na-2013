@@ -11,6 +11,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.source.version>1.7</jdk.source.version>
         <jdk.target.version>1.7</jdk.target.version>
+
+        <commons-io.version>2.4</commons-io.version>
+        <org.apache.activemq.version>5.8.0</org.apache.activemq.version>
+        <org.apache.camel.version>2.10.3</org.apache.camel.version>
+        <org.apache-extras.camel-extra.version>2.10.1</org.apache-extras.camel-extra.version>
+        <org.apache.cxf.version>2.6.3</org.apache.cxf.version>
+        <org.jibx.version>1.2.4.5</org.jibx.version>
+        <org.slf4j.version>1.6.6</org.slf4j.version>
     </properties>
 
     <modules>
@@ -22,6 +30,116 @@
         <module>jms-routing</module>
         <module>cxf</module>
     </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-camel</artifactId>
+                <version>${org.apache.activemq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-core</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-cxf</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-gson</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-http</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jackson</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jaxb</artifactId>
+                <version>2.10.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jibx</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jetty</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jms</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-saxon</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-stream</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test-spring</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-xmlbeans</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-xstream</artifactId>
+                <version>${org.apache.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache-extras.camel-extra</groupId>
+                <artifactId>camel-vtdxml</artifactId>
+                <version>${org.apache-extras.camel-extra.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>${org.apache.cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jibx</groupId>
+                <artifactId>jibx-run</artifactId>
+                <version>${org.jibx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
