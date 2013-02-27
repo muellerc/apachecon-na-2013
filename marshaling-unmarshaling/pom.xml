@@ -9,8 +9,8 @@
     </parent>
 
     <groupId>org.apache.cmueller.camel.apachecon-na-2013</groupId>
-    <artifactId>marshalling-unmarshalling</artifactId>
-    <name>ApacheCon NA 2013 :: marshalling-unmarshalling</name>
+    <artifactId>marshaling-unmarshaling</artifactId>
+    <name>ApacheCon NA 2013 :: marshaling-unmarshaling</name>
 
     <properties>
         <jdk.source.version>1.6</jdk.source.version>

@@ -26,7 +26,7 @@
         <module>xpath-vs-xquery</module>
         <module>file-appending</module>
         <module>file-splitting</module>
-        <module>marshalling-unmarshalling</module>
+        <module>marshaling-unmarshaling</module>
         <module>threads</module>
         <module>jms-routing</module>
         <module>cxf</module>
