@@ -23,7 +23,7 @@
     </properties>
 
     <modules>
-        <module>xpath-vs-xquery</module>
+        <module>cbr-eip</module>
         <module>file-appending</module>
         <module>file-splitting</module>
         <module>marshaling-unmarshaling</module>

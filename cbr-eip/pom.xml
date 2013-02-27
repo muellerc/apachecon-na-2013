@@ -9,8 +9,8 @@
     </parent>
 
     <groupId>org.apache.cmueller.camel.apachecon-na-2013</groupId>
-    <artifactId>xpath-vs-xquery</artifactId>
-    <name>ApacheCon NA 2013 :: xpath-vs-xquery</name>
+    <artifactId>cbr-eip</artifactId>
+    <name>ApacheCon NA 2013 :: cbr-eip</name>
 
     <dependencies>
         <dependency>
