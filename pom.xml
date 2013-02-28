@@ -29,6 +29,7 @@
         <module>marshaling-unmarshaling</module>
         <module>threads</module>
         <module>jms-component</module>
+        <module>sjms-component</module>
         <module>cxf-component</module>
         <module>sql-component</module>
         <module>template</module>
