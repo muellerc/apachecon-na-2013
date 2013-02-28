@@ -16,40 +16,9 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.Test;
 
-public class XPathSplitterRouteTest extends CamelTestSupport {
-
-//    @Test
-//    public void generateXML() throws Exception {
-//        template.setDefaultEndpointUri("file://src/test/data?fileName=10M_ordersList.xml&fileExist=Append");
-//        String paylaod = IOUtils.toString(new FileInputStream("src/test/data/100K_orders.xml"), "UTF-8");
-//
-//        template.sendBody("<ordersList>\n");
-//        for (int i = 0; i < 100; i++) {
-//            template.sendBody(paylaod);
-//        }
-//        template.sendBody("</ordersList>");
-//    }
-
-    @Test
-    public void measureXPathSplitterExecution() throws Exception {
-        getMockEndpoint("mock:end").setExpectedMessageCount(1000);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        StopWatch watch = new StopWatch();
-
-        context.startRoute("splitter");
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("measureXPathSplitter duration: " + watch.stop() + "ms");
-    }
+public class XPathSplitterRouteTest extends SplitBaseTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

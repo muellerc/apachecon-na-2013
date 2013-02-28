@@ -16,28 +16,9 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.Test;
 
-public class TokenizeSplitterRouteTest extends CamelTestSupport {
-
-    @Test
-    public void measureTokenizeSplitterExecution() throws Exception {
-        getMockEndpoint("mock:end").setExpectedMessageCount(1000);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        StopWatch watch = new StopWatch();
-
-        context.startRoute("splitter");
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("measureTokenizeSplitter duration: " + watch.stop() + "ms");
-    }
+public class TokenizeSplitterRouteTest extends SplitBaseTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
