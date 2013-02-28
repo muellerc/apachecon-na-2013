@@ -16,40 +16,10 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.io.FileInputStream;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.apache.commons.io.IOUtils;
-import org.junit.Test;
 
-public class XQueryRouteTest extends CamelTestSupport {
-
-    private int repeatCounter = 10000;
-
-    @Test
-    public void measureXQueryExecution() throws Exception {
-        template.setDefaultEndpointUri("direct:xquery");
-        String paylaod = IOUtils.toString(new FileInputStream("src/test/data/10K_buyStocks.xml"), "UTF-8");
-
-        // warm up
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(paylaod);
-        }
-
-        getMockEndpoint("mock:xquery").reset();
-        getMockEndpoint("mock:xquery").expectedMessageCount(repeatCounter);
-
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(paylaod);
-        }
-        assertMockEndpointsSatisfied();
-
-        System.out.println("measureXQueryExecution duration: " + watch.stop() + "ms");
-    }
+public class XQueryRouteTest extends BaseRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -58,10 +28,10 @@ public class XQueryRouteTest extends CamelTestSupport {
                 Namespaces ns = new Namespaces("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
                 ns.add("s", "http://services.samples/xsd");
 
-                from("direct:xquery")
+                from("direct:start")
                     .choice()
                         .when().xquery("/soapenv:Envelope/soapenv:Body/s:buyStocks/order[5]/symbol='IBM'", ns)
-                            .to("mock:xquery")
+                            .to("mock:end")
                     .end();
             }
         };

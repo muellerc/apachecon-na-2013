@@ -16,48 +16,18 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.io.FileInputStream;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.apache.commons.io.IOUtils;
-import org.junit.Test;
 
-public class SimpleRouteTest extends CamelTestSupport {
-
-    private int repeatCounter = 10000;
-
-    @Test
-    public void measureSimpleExecution() throws Exception {
-        template.setDefaultEndpointUri("direct:simple");
-        String paylaod = IOUtils.toString(new FileInputStream("src/test/data/10K_buyStocks.xml"), "UTF-8");
-
-        // warm up
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(paylaod);
-        }
-
-        getMockEndpoint("mock:simple").reset();
-        getMockEndpoint("mock:simple").expectedMessageCount(repeatCounter);
-
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(paylaod);
-        }
-        assertMockEndpointsSatisfied();
-
-        System.out.println("measureSimpleExecution duration: " + watch.stop() + "ms");
-    }
+public class SimpleRouteTest extends BaseRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                from("direct:simple")
+                from("direct:start")
                     .choice()
-                        .when().simple("${body} contains 'IBM'")
-                            .to("mock:simple")
+                        .when().simple("${body} contains '<symbol>IBM</symbol>'")
+                            .to("mock:end")
                     .end();
             }
         };

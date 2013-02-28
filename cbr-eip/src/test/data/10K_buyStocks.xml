@@ -97,7 +97,7 @@
 <order><symbol>GOOG</symbol><buyerID>chathura</buyerID><price>60.24</price><volume>40000</volume></order>
 <order><symbol>IBM</symbol><buyerID>asankha</buyerID><price>140.34</price><volume>2000</volume></order>
 <order><symbol>MSFT</symbol><buyerID>ruwan</buyerID><price>23.56</price><volume>8030</volume></order>
-<order><symbol>SUN</symbol><buyerID>indika</buyerID><price>14.56</price><volume>50000000000000000000000000000000</volume></order>
+<order><symbol>SUN</symbol><buyerID>indika</buyerID><price>14.56</price><volume>5000</volume></order>
 </m:buyStocks>
 </soapenv:Body>
 </soapenv:Envelope>
