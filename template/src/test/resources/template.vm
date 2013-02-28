@@ -1,0 +1,6 @@
+Dear ${headers.name}
+
+Thanks for the order of ${headers.volume} shares from ${headers.symbol}.
+
+Regards,
+${body}
