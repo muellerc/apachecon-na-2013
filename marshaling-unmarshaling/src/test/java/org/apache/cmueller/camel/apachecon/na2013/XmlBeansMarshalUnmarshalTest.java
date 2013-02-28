@@ -16,42 +16,15 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.Test;
 
 import samples.services.xsd.BuyStocksDocument;
 import samples.services.xsd.BuyStocksDocument.BuyStocks;
 import samples.services.xsd.Order;
 
-public class XmlBeansMarshalUnmarshalTest extends CamelTestSupport {
+public class XmlBeansMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
 
-    private int repeatCounter = 10000;
-
-    @Test
-    public void measureXmlBeansMarshalUnmarshalExecution() throws Exception {
-        template.setDefaultEndpointUri("direct:start");
-        BuyStocksDocument payload = createBuyStocks();
-
-        warmUp(payload);
-        
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(payload);
-        }
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("measureXmlBeansMarshalUnmarshal duration: " + watch.stop() + "ms");
-    }
-
-    private BuyStocksDocument createBuyStocks() {
+    protected BuyStocksDocument createBuyStocks() {
         BuyStocksDocument document = BuyStocksDocument.Factory.newInstance();
         BuyStocks payload = document.addNewBuyStocks();
         Order order = payload.addNewOrder();
@@ -79,19 +52,6 @@ public class XmlBeansMarshalUnmarshalTest extends CamelTestSupport {
         order.setVolume(40000);
         
         return document;
-    }
-
-    private void warmUp(BuyStocksDocument paylaod) throws Exception {
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(paylaod);
-        }
-
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-        getMockEndpoint("mock:end").reset();
     }
 
     @Override

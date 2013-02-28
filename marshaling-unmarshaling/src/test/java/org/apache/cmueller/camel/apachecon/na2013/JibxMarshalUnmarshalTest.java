@@ -16,65 +16,12 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.jibx.JibxDataFormat;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
 import org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks;
-import org.apache.cmueller.camel.apachecon.na2013.model.Order;
-import org.junit.Test;
 
-public class JibxMarshalUnmarshalTest extends CamelTestSupport {
-
-    private int repeatCounter = 10000;
-
-    @Test
-    public void measureJibxMarshalUnmarshalExecution() throws Exception {
-        // http://jira.codehaus.org/browse/JIBX-465
-        
-        template.setDefaultEndpointUri("direct:start");
-        BuyStocks payload = createBuyStocks();
-
-        warmUp(payload);
-
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(payload);
-        }
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("measureJibxMarshalUnmarshal duration: " + watch.stop() + "ms");
-    }
-
-    private BuyStocks createBuyStocks() {
-        BuyStocks payload = new BuyStocks();
-        payload.setOrder(new ArrayList<Order>());
-        payload.getOrder().add(new Order("IBM", "asankha", 140.34, 2000));
-        payload.getOrder().add(new Order("MSFT", "ruwan", 23.56, 8030));
-        payload.getOrder().add(new Order("SUN", "indika", 14.56, 50000));
-        payload.getOrder().add(new Order("GOOG", "chathura", 60.24, 40000));
-        return payload;
-    }
-
-    private void warmUp(Object paylaod) throws Exception {
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(paylaod);
-        }
-
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-        getMockEndpoint("mock:end").reset();
-    }
+public class JibxMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
+    // http://jira.codehaus.org/browse/JIBX-465
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
