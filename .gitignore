@@ -1,4 +1,5 @@
 *.class
+derby.log
 target
 .settings
 

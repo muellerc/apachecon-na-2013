@@ -23,8 +23,6 @@ public class XPathRouteTest extends BaseRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
-        //return new MyXPathRouteBuilder();
-
         return new RouteBuilder() {
             public void configure() throws Exception {
                 Namespaces ns = new Namespaces("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");

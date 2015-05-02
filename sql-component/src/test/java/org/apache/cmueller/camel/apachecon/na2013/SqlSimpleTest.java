@@ -20,21 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.sql.DataSource;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.apache.camel.util.StopWatch;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class SqlSimpleTest extends CamelTestSupport {
 
     private int repeatCounter = 10000;
-    private DataSource datasource;
+    private EmbeddedDatabase datasource;
 
     @Before
     public void setUp() throws Exception {
@@ -45,7 +45,14 @@ public class SqlSimpleTest extends CamelTestSupport {
 
         super.setUp();
     }
-    
+
+    @After
+    public void tearDown() throws Exception {
+        super.tearDown();
+
+        datasource.shutdown();
+    }
+
     @Override
     protected JndiRegistry createRegistry() throws Exception {
         JndiRegistry registry = super.createRegistry();
