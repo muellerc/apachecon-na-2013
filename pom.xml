@@ -14,7 +14,7 @@
 
         <commons-io.version>2.4</commons-io.version>
         <org.apache.activemq.version>5.11.1</org.apache.activemq.version>
-        <org.apache.camel.version>2.15.0</org.apache.camel.version>
+        <org.apache.camel.version>2.15.1</org.apache.camel.version>
         <!-- the last Camel Extra release -->
         <org.apache-extras.camel-extra.version>2.13.2</org.apache-extras.camel-extra.version>
         <org.apache.cxf.version>3.0.4</org.apache.cxf.version>
