@@ -19,7 +19,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 import java.io.FileInputStream;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.camel.test.junit4.CamelSpringTestSupport;
+import org.apache.camel.test.spring.CamelSpringTestSupport;
 import org.apache.camel.util.StopWatch;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
