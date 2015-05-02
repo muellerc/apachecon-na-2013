@@ -13,14 +13,14 @@
         <jdk.target.version>1.7</jdk.target.version>
 
         <commons-io.version>2.4</commons-io.version>
-        <org.apache.activemq.version>5.10.0</org.apache.activemq.version>
-        <org.apache.camel.version>2.14.0</org.apache.camel.version>
+        <org.apache.activemq.version>5.11.1</org.apache.activemq.version>
+        <org.apache.camel.version>2.15.0</org.apache.camel.version>
         <!-- the last Camel Extra release -->
         <org.apache-extras.camel-extra.version>2.13.2</org.apache-extras.camel-extra.version>
-        <org.apache.cxf.version>3.0.1</org.apache.cxf.version>
+        <org.apache.cxf.version>3.0.4</org.apache.cxf.version>
         <org.apache.derby.version>10.11.1.1</org.apache.derby.version>
         <org.jibx.version>1.2.5</org.jibx.version>
-        <org.slf4j.version>1.7.7</org.slf4j.version>
+        <org.slf4j.version>1.7.10</org.slf4j.version>
     </properties>
 
     <modules>
