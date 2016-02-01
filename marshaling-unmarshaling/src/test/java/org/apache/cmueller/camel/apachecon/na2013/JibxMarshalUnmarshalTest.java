@@ -19,7 +19,9 @@ package org.apache.cmueller.camel.apachecon.na2013;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.jibx.JibxDataFormat;
 import org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks;
+import org.junit.Ignore;
 
+@Ignore
 public class JibxMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
     // http://jira.codehaus.org/browse/JIBX-465
 

@@ -12,11 +12,6 @@
     <artifactId>marshaling-unmarshaling</artifactId>
     <name>ApacheCon NA 2013 :: marshaling-unmarshaling</name>
 
-    <properties>
-        <jdk.source.version>1.7</jdk.source.version>
-        <jdk.target.version>1.7</jdk.target.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -66,7 +61,7 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.jibx</groupId>
                 <artifactId>maven-jibx-plugin</artifactId>
                 <version>${org.jibx.version}</version>
@@ -83,7 +78,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
