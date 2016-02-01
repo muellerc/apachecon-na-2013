@@ -25,8 +25,8 @@ public class XStreamMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
         return new RouteBuilder() {
             public void configure() throws Exception {
                 from("direct:start")
-                    .marshal().xstream()
-                    .unmarshal().xstream()
+                    .marshal().xstream("UTF-8", "org.apache.cmueller.camel.apachecon.na2013.model.*")
+                    .unmarshal().xstream("UTF-8", "org.apache.cmueller.camel.apachecon.na2013.model.*")
                     .to("mock:end");
             }
         };

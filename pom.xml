@@ -3,7 +3,7 @@
 
     <groupId>org.apache.cmueller.camel</groupId>
     <artifactId>apachecon-na-2013</artifactId>
-    <version>2.16.0-SNAPSHOT</version>
+    <version>2.16.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>ApacheCon NA 2013</name>
 
@@ -13,13 +13,13 @@
         <jdk.target.version>1.7</jdk.target.version>
 
         <commons-io.version>2.4</commons-io.version>
-        <org.apache.activemq.version>5.11.1</org.apache.activemq.version>
-        <org.apache.camel.version>2.16-SNAPSHOT</org.apache.camel.version>
+        <org.apache.activemq.version>5.12.1</org.apache.activemq.version>
+        <org.apache.camel.version>2.16.2</org.apache.camel.version>
         <!-- the last Camel Extra release -->
-        <org.apache-extras.camel-extra.version>2.13.2</org.apache-extras.camel-extra.version>
-        <org.apache.cxf.version>3.0.4</org.apache.cxf.version>
-        <org.apache.derby.version>10.11.1.1</org.apache.derby.version>
-        <org.jibx.version>1.2.5</org.jibx.version>
+        <org.apache-extras.camel-extra.version>2.14.1</org.apache-extras.camel-extra.version>
+        <org.apache.cxf.version>3.1.4</org.apache.cxf.version>
+        <org.apache.derby.version>10.12.1.1</org.apache.derby.version>
+        <org.jibx.version>1.2.6</org.jibx.version>
         <org.slf4j.version>1.7.12</org.slf4j.version>
     </properties>
 

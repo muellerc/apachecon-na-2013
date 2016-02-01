@@ -1,9 +1,8 @@
-*.class
-derby.log
-target
-.settings
+target/
+.settings/
+.idea/
 
-# Package Files #
-*.jar
-*.war
-*.ear
+*.iml
+.classpath
+.project
+derby.log

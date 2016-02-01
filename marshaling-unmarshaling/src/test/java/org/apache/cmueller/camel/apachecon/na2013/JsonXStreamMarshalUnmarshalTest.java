@@ -17,6 +17,7 @@
 package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dataformat.xstream.JsonDataFormat;
 
 public class JsonXStreamMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
 
@@ -24,9 +25,12 @@ public class JsonXStreamMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
+                JsonDataFormat json = new JsonDataFormat();
+                json.setPermissions("org.apache.cmueller.camel.apachecon.na2013.model.*");
+
                 from("direct:start")
-                    .marshal().json()
-                    .unmarshal().json()
+                    .marshal(json)
+                    .unmarshal(json)
                     .to("mock:end");
             }
         };
