@@ -39,8 +39,16 @@ public abstract class AbstractTemplateTest extends CamelTestSupport {
         headers.put("volume", "200");
         headers.put("symbol", "IBM");
 
-        warmUp(payload, headers);
+        // warm up
+        execute(payload, headers);
 
+        long duration = execute(payload, headers);
+
+        System.out.println("duration: " + duration + "ms");
+    }
+
+    private long execute(String payload, Map<String, Object> headers) throws Exception {
+        getMockEndpoint("mock:end").reset();
         getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
         getMockEndpoint("mock:end").setRetainFirst(0);
         getMockEndpoint("mock:end").setRetainLast(0);
@@ -49,21 +57,8 @@ public abstract class AbstractTemplateTest extends CamelTestSupport {
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBodyAndHeaders(payload, headers);
         }
-        assertMockEndpointsSatisfied();
-
-        System.out.println("duration: " + watch.stop() + "ms");
-    }
-
-    private void warmUp(String payload, Map<String, Object> headers) throws Exception {
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBodyAndHeaders(payload, headers);
-        }
 
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-        getMockEndpoint("mock:end").reset();
+        return watch.stop();
     }
 }
