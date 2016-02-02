@@ -17,21 +17,21 @@
 package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.converter.jaxb.JaxbDataFormat;
+import org.apache.camel.component.boon.BoonDataFormat;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks;
 
-public class JaxbAbstractMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
+public class JsonBoonMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                JaxbDataFormat jaxb = new JaxbDataFormat(BuyStocks.class.getPackage().getName());
-                jaxb.setPrettyPrint(false);
+                BoonDataFormat boon = new BoonDataFormat(BuyStocks.class);
 
                 from("direct:start")
-                    .marshal(jaxb)
-                    .unmarshal(jaxb)
+                    .marshal(boon)
+                    .unmarshal(boon)
                     .to("mock:end");
             }
         };

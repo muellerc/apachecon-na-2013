@@ -17,23 +17,21 @@
 package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.jibx.JibxDataFormat;
+import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks;
-import org.junit.Ignore;
 
-@Ignore
-public class JibxAbstractMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
-    // http://jira.codehaus.org/browse/JIBX-465
+public class JaxbMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                JibxDataFormat jibx = new JibxDataFormat(BuyStocks.class);
+                JaxbDataFormat jaxb = new JaxbDataFormat(BuyStocks.class.getPackage().getName());
+                jaxb.setPrettyPrint(false);
 
                 from("direct:start")
-                    .marshal(jibx)
-                    .unmarshal(jibx)
+                    .marshal(jaxb)
+                    .unmarshal(jaxb)
                     .to("mock:end");
             }
         };
