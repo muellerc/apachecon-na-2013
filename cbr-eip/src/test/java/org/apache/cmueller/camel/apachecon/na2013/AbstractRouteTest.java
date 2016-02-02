@@ -23,17 +23,26 @@ import org.apache.camel.util.StopWatch;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-public abstract class BaseRouteTest extends CamelTestSupport {
+public abstract class AbstractRouteTest extends CamelTestSupport {
 
     protected int repeatCounter = 10000;
 
     @Test
     public void test() throws Exception {
         template.setDefaultEndpointUri("direct:start");
+
         String paylaod = IOUtils.toString(new FileInputStream("src/test/data/10K_buyStocks.xml"), "UTF-8");
 
-        warmUp(paylaod);
+        // warm up
+        execute(paylaod);
 
+        long duration = execute(paylaod);
+
+        System.out.println("duration: " + duration + "ms");
+    }
+
+    protected long execute(String paylaod) throws InterruptedException {
+        getMockEndpoint("mock:end").reset();
         getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
         getMockEndpoint("mock:end").setRetainFirst(0);
         getMockEndpoint("mock:end").setRetainLast(0);
@@ -42,21 +51,8 @@ public abstract class BaseRouteTest extends CamelTestSupport {
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBodyAndHeader(paylaod, "ROUTING_CONDITION", "IBM");
         }
-        assertMockEndpointsSatisfied();
-
-        System.out.println("duration: " + watch.stop() + "ms");
-    }
-
-    protected void warmUp(String paylaod) throws InterruptedException {
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBodyAndHeader(paylaod, "ROUTING_CONDITION", "IBM");
-        }
 
         assertMockEndpointsSatisfied();
-        getMockEndpoint("mock:end").reset();
+        return watch.stop();
     }
 }

@@ -19,7 +19,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
 
-public class XPathRouteTest extends BaseRouteTest {
+public class XPathRouteTest extends AbstractRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

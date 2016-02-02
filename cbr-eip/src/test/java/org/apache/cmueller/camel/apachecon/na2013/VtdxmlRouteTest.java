@@ -19,7 +19,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 import org.apache.camel.builder.RouteBuilder;
 import org.apacheextras.camel.component.vtdxml.VtdXmlXPathBuilder;
 
-public class VtdxmlRouteTest extends BaseRouteTest {
+public class VtdxmlRouteTest extends AbstractRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

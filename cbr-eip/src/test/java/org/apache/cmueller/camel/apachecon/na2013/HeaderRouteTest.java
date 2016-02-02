@@ -18,7 +18,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class HeaderRouteTest extends BaseRouteTest {
+public class HeaderRouteTest extends AbstractRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
