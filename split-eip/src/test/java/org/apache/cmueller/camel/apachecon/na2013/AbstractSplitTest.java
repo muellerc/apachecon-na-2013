@@ -16,19 +16,27 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import org.apache.camel.builder.RouteBuilder;
+import java.util.concurrent.TimeUnit;
 
-public class XPathSplitterRouteTest extends SplitBaseTest {
+import org.apache.camel.test.junit4.CamelTestSupport;
+import org.apache.camel.util.StopWatch;
+import org.junit.Test;
 
-    @Override
-    protected RouteBuilder createRouteBuilder() throws Exception {
-        return new RouteBuilder() {
-            public void configure() throws Exception {
-                from("file://src/test/data?fileName=100M_ordersList.xml&noop=true&initialDelay=0").routeId("splitter").autoStartup(false)
-                    .split().xpath("/ordersList/orders")
-                        .to("mock:end")
-                    .end();
-            }
-        };
+public abstract class AbstractSplitTest extends CamelTestSupport {
+
+    protected int messageCont = 1000;
+
+    @Test
+    public void test() throws Exception {
+        getMockEndpoint("mock:end").setExpectedMessageCount(messageCont);
+        getMockEndpoint("mock:end").setRetainFirst(0);
+        getMockEndpoint("mock:end").setRetainLast(0);
+
+        StopWatch watch = new StopWatch();
+
+        context.startRoute("splitter");
+        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
+
+        System.out.println("duration: " + watch.stop() + "ms");
     }
 }

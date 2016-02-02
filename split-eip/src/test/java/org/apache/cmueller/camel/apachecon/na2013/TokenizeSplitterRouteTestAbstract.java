@@ -18,7 +18,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class TokenizeSplitterRouteTest extends SplitBaseTest {
+public class TokenizeSplitterRouteTestAbstract extends AbstractSplitTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

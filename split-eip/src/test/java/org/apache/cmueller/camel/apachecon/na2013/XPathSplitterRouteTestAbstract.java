@@ -17,16 +17,15 @@
 package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apacheextras.camel.component.vtdxml.VtdXmlXPathBuilder;
 
-public class VtdxmlSplitterRouteTest extends SplitBaseTest {
+public class XPathSplitterRouteTestAbstract extends AbstractSplitTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
                 from("file://src/test/data?fileName=100M_ordersList.xml&noop=true&initialDelay=0").routeId("splitter").autoStartup(false)
-                    .split(new VtdXmlXPathBuilder("/ordersList/orders"))
+                    .split().xpath("/ordersList/orders")
                         .to("mock:end")
                     .end();
             }
