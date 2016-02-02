@@ -16,56 +16,9 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.Test;
 
-public class FreeMarkerTest extends CamelTestSupport {
-
-    private int repeatCounter = 10000;
-
-    @Test
-    public void measureFreeMarkerExecution() throws Exception {
-        template.setDefaultEndpointUri("direct:start");
-
-        String payload = "The Camel riders";
-        Map<String, Object> headers = new HashMap<String, Object>();
-        headers.put("name", "cmueller");
-        headers.put("volume", "200");
-        headers.put("symbol", "IBM");
-
-        warmUp(payload, headers);
-
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBodyAndHeaders(payload, headers);
-        }
-        assertMockEndpointsSatisfied();
-
-        System.out.println("measureFreeMarkerExecution duration: " + watch.stop() + "ms");
-    }
-
-    private void warmUp(String payload, Map<String, Object> headers) throws Exception {
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBodyAndHeaders(payload, headers);
-        }
-
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-        getMockEndpoint("mock:end").reset();
-    }
+public class FreeMarkerTest extends AbstractTemplateTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
