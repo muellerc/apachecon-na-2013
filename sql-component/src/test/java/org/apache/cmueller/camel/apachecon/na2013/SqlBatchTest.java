@@ -16,84 +16,14 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.JndiRegistry;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-public class SqlBatchTest extends CamelTestSupport {
+public class SqlBatchTest extends AbstractSqlTest {
 
-    private int repeatCounter = 10000;
-    private int batchSite = 10;
-    private EmbeddedDatabase datasource;
+    private int batchSize = 10;
 
-    @Before
-    public void setUp() throws Exception {
-        datasource = new EmbeddedDatabaseBuilder()
-            .setType(EmbeddedDatabaseType.DERBY)
-            .addScript("sql/init_database.sql")
-            .build();
-
-        super.setUp();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        super.tearDown();
-
-        datasource.shutdown();
-    }
-
-    @Override
-    protected JndiRegistry createRegistry() throws Exception {
-        JndiRegistry registry = super.createRegistry();
-        registry.bind("datasource", datasource);
-        return registry;
-    }
-
-    @Test
-    public void measureSqlSimpleExecution() throws Exception {
-        template.setDefaultEndpointUri("direct:start");
-        List<Object> paylaod = new ArrayList<Object>();
-        paylaod.add("IBM");
-        paylaod.add("cmueller");
-        paylaod.add(140.34);
-        paylaod.add(2000);
-
-        warmUp(paylaod);
-
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter / batchSite);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBodyAndHeader(paylaod, "AGG_KEY", "BATCH");
-        }
-        assertMockEndpointsSatisfied(5, TimeUnit.MINUTES);
-
-        System.out.println("measureSqlSimpleExecution duration: " + watch.stop() + "ms");
-    }
-
-    private void warmUp(List<Object> paylaod) throws InterruptedException {
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter / batchSite);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBodyAndHeader(paylaod, "AGG_KEY", "BATCH");
-        }
-        assertMockEndpointsSatisfied(5, TimeUnit.MINUTES);
-        getMockEndpoint("mock:end").reset();
+    public int getExpectedMessageCount() {
+        return repeatCounter / batchSize;
     }
 
     @Override
@@ -101,7 +31,7 @@ public class SqlBatchTest extends CamelTestSupport {
         return new RouteBuilder() {
             public void configure() throws Exception {
                 from("direct:start")
-                    .aggregate(header("AGG_KEY"), new MapAggregatingStrategy()).completionSize(batchSite).completionTimeout(100)
+                    .aggregate(header("AGG_KEY"), new MapAggregatingStrategy()).completionSize(batchSize).completionTimeout(100)
                     .to("sql:insert into orders (symbol, buyer, price, volume) values (#, #, #, #)?dataSourceRef=datasource&batch=true")
                     .to("mock:end");
             }
