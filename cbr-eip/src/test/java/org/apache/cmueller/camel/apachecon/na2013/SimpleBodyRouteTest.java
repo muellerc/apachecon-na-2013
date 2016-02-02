@@ -17,22 +17,16 @@
 package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apacheextras.camel.component.vtdxml.VtdXmlXPathBuilder;
 
-public class VtdxmlRouteTest extends AbstractRouteTest {
+public class SimpleBodyRouteTest extends AbstractRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                VtdXmlXPathBuilder predicate =
-                    new VtdXmlXPathBuilder("/soapenv:Envelope/soapenv:Body/s:buyStocks/order[5]/symbol='IBM'")
-                        .namespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/")
-                        .namespace("s", "http://services.samples/xsd");
-
                 from("direct:start")
                     .choice()
-                        .when(predicate)
+                        .when().simple("${body} contains '<symbol>IBM</symbol>'")
                             .to("mock:end")
                     .end();
             }

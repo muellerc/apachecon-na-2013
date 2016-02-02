@@ -17,20 +17,22 @@
 package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.xml.Namespaces;
+import org.apacheextras.camel.component.vtdxml.VtdXmlXPathBuilder;
 
-public class XPathRouteTest extends AbstractRouteTest {
+public class VtdxmlBodyRouteTest extends AbstractRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                Namespaces ns = new Namespaces("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
-                ns.add("s", "http://services.samples/xsd");
+                VtdXmlXPathBuilder predicate =
+                    new VtdXmlXPathBuilder("/soapenv:Envelope/soapenv:Body/s:buyStocks/order[5]/symbol='IBM'")
+                        .namespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/")
+                        .namespace("s", "http://services.samples/xsd");
 
                 from("direct:start")
                     .choice()
-                        .when().xpath("/soapenv:Envelope/soapenv:Body/s:buyStocks/order[5]/symbol='IBM'", ns)
+                        .when(predicate)
                             .to("mock:end")
                     .end();
             }

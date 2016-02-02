@@ -16,9 +16,10 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
-public class SimpleRouteTest extends AbstractRouteTest {
+public class JavaPredicateBodyRouteTest extends AbstractRouteTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -26,7 +27,7 @@ public class SimpleRouteTest extends AbstractRouteTest {
             public void configure() throws Exception {
                 from("direct:start")
                     .choice()
-                        .when().simple("${body} contains '<symbol>IBM</symbol>'")
+                        .when((Exchange exchange) -> exchange.getIn().getBody(String.class).contains("<symbol>IBM</symbol>"))
                             .to("mock:end")
                     .end();
             }
