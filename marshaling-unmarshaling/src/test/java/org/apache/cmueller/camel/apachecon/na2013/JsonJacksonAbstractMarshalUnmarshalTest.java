@@ -20,15 +20,15 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks;
 
-public class JsonGsonMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
+public class JsonJacksonAbstractMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
                 from("direct:start")
-                    .marshal().json(JsonLibrary.Gson)
-                    .unmarshal().json(JsonLibrary.Gson, BuyStocks.class)
+                    .marshal().json(JsonLibrary.Jackson)
+                    .unmarshal().json(JsonLibrary.Jackson, BuyStocks.class)
                     .to("mock:end");
             }
         };

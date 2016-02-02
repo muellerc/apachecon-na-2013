@@ -18,7 +18,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class SerializationMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
+public class SerializationAbstractMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

@@ -22,7 +22,7 @@ import samples.services.xsd.BuyStocksDocument;
 import samples.services.xsd.BuyStocksDocument.BuyStocks;
 import samples.services.xsd.Order;
 
-public class XmlBeansMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
+public class XmlBeansAbstractMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
 
     protected BuyStocksDocument createBuyStocks() {
         BuyStocksDocument document = BuyStocksDocument.Factory.newInstance();

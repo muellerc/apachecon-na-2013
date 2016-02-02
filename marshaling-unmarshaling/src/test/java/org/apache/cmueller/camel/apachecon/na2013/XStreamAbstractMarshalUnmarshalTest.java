@@ -18,7 +18,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class XStreamMarshalUnmarshalTest extends MarshalUnmarshalBaseTest {
+public class XStreamAbstractMarshalUnmarshalTest extends AbstractMarshalUnmarshalTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

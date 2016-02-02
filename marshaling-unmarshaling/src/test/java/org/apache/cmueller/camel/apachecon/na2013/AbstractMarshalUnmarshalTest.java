@@ -25,7 +25,7 @@ import org.apache.cmueller.camel.apachecon.na2013.model.BuyStocks;
 import org.apache.cmueller.camel.apachecon.na2013.model.Order;
 import org.junit.Test;
 
-public abstract class MarshalUnmarshalBaseTest extends CamelTestSupport {
+public abstract class AbstractMarshalUnmarshalTest extends CamelTestSupport {
 
     protected int repeatCounter = 10000;
 
@@ -34,19 +34,12 @@ public abstract class MarshalUnmarshalBaseTest extends CamelTestSupport {
         template.setDefaultEndpointUri("direct:start");
         Object payload = createBuyStocks();
 
-        warmUp(payload);
+        // warm up
+        execute(payload);
 
-        getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
-        getMockEndpoint("mock:end").setRetainFirst(0);
-        getMockEndpoint("mock:end").setRetainLast(0);
+        long duration = execute(payload);
 
-        StopWatch watch = new StopWatch();
-        for (int i = 0; i < repeatCounter; i++) {
-            template.sendBody(payload);
-        }
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("duration: " + watch.stop() + "ms");
+        System.out.println("duration: " + duration + "ms");
     }
 
     protected Object createBuyStocks() {
@@ -59,16 +52,18 @@ public abstract class MarshalUnmarshalBaseTest extends CamelTestSupport {
         return payload;
     }
 
-    protected void warmUp(Object payload) throws Exception {
+    protected long execute(Object payload) throws Exception {
+        getMockEndpoint("mock:end").reset();
         getMockEndpoint("mock:end").expectedMessageCount(repeatCounter);
         getMockEndpoint("mock:end").setRetainFirst(0);
         getMockEndpoint("mock:end").setRetainLast(0);
 
+        StopWatch watch = new StopWatch();
         for (int i = 0; i < repeatCounter; i++) {
             template.sendBody(payload);
         }
 
         assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-        getMockEndpoint("mock:end").reset();
+        return watch.stop();
     }
 }
