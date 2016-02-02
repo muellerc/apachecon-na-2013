@@ -16,26 +16,9 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.Test;
 
-public class SimpleFileSplitAndAppendTest extends CamelTestSupport {
-
-    @Test
-    public void measureSimpleFileSplitAndAppend() throws Exception {
-        getMockEndpoint("mock:end").setExpectedMessageCount(1);
-
-        StopWatch watch = new StopWatch();
-
-        context.startRoute("splitter");
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("measureSimpleFileSplitAndAppend duration: " + watch.stop() + "ms");
-    }
+public class SimpleFileSplitAndAppendTest extends AbstractSplitterTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {

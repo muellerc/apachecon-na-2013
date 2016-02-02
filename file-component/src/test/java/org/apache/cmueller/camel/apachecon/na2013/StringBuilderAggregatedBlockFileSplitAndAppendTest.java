@@ -16,26 +16,9 @@
  */
 package org.apache.cmueller.camel.apachecon.na2013;
 
-import java.util.concurrent.TimeUnit;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.util.StopWatch;
-import org.junit.Test;
 
-public class StringAggregatedFileSplitAndAppendTest extends CamelTestSupport {
-
-    @Test
-    public void measureStringAggregatedFileSplitAndAppend() throws Exception {
-        getMockEndpoint("mock:end").setExpectedMessageCount(1);
-
-        StopWatch watch = new StopWatch();
-
-        context.startRoute("splitter");
-        assertMockEndpointsSatisfied(1, TimeUnit.MINUTES);
-
-        System.out.println("measureStringAggregatedFileSplitAndAppend duration: " + watch.stop() + "ms");
-    }
+public class StringBuilderAggregatedBlockFileSplitAndAppendTest extends AbstractSplitterTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -44,7 +27,8 @@ public class StringAggregatedFileSplitAndAppendTest extends CamelTestSupport {
                 from("file://src/test/data?charset=UTF-8&noop=true&initialDelay=0").routeId("splitter").autoStartup(false)
                     .split(body().tokenize("\n")).streaming()
                         // do some processing
-                        .aggregate(header("CamelFileName"), new StringAggregatingStrategy()).completionSize(1000).completionTimeout(200)
+                        .aggregate(header("CamelFileName"), new StringBuilderAggregatingStrategy()).completionSize(1000).completionTimeout(200)
+                            .convertBodyTo(String.class)
                             .to("file://target?charset=UTF-8&fileExist=Append")
                         .end()
                     .end()

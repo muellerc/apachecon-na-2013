@@ -18,7 +18,7 @@ package org.apache.cmueller.camel.apachecon.na2013;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class StreamingFileSplitAndAppendTest extends AbstractSplitterTest {
+public class StringAggregatedBlocksFileSplitAndAppendTest extends AbstractSplitterTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -27,7 +27,9 @@ public class StreamingFileSplitAndAppendTest extends AbstractSplitterTest {
                 from("file://src/test/data?charset=UTF-8&noop=true&initialDelay=0").routeId("splitter").autoStartup(false)
                     .split(body().tokenize("\n")).streaming()
                         // do some processing
-                        .to("stream:file?fileName=target/stress_input_file.txt&encoding=UTF-8")
+                        .aggregate(header("CamelFileName"), new StringAggregatingStrategy()).completionSize(1000).completionTimeout(200)
+                            .to("file://target?charset=UTF-8&fileExist=Append")
+                        .end()
                     .end()
                     .to("mock:end");
             }
